@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HealthPilot AI | Personal Health Copilot</title>
+<style>
+:root{--r:#c62828;--pink:#fff0f0;--bg:#fff8f8;--ink:#292d36;--muted:#737987;--border:#f0dddd}
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}
+header{background:#fff;padding:16px 4%;display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5}
+.logo{font-weight:800;font-size:21px;color:var(--r)}.logo span{color:var(--ink)}
+nav{display:flex;flex-wrap:wrap;gap:13px}nav a{font-size:12px;color:#555;text-decoration:none;font-weight:bold}
+.layout{display:grid;grid-template-columns:210px minmax(0,1fr);min-height:100vh}
+aside{background:white;padding:22px 13px;border-right:1px solid var(--border)}
+.side-link{display:block;padding:12px;border-radius:9px;color:#555;text-decoration:none;font-size:13px;margin:4px 0}
+.side-link:hover{background:var(--pink);color:var(--r)}
+main{padding:25px 3%;max-width:1500px;width:100%;margin:auto;min-width:0}
+section{scroll-margin-top:90px}.section{margin-top:30px}
+.hero{background:linear-gradient(125deg,#951717,#ed5151);border-radius:19px;padding:30px;color:white;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.hero h1{font-size:clamp(27px,4vw,42px);margin:12px 0}.hero p{font-size:14px;line-height:1.8;color:#ffeaea;max-width:600px}.hero-icon{font-size:85px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.card{background:white;border:1px solid var(--border);border-radius:14px;padding:18px;min-width:0}
+h2{font-size:21px;margin:0 0 7px}h3{font-size:16px;margin:10px 0}
+.sub{font-size:12px;color:var(--muted);line-height:1.7}
+.icon{background:var(--pink);width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:21px}
+.stat{font-size:28px;font-weight:800;margin:12px 0 5px}
+.btn{border:0;border-radius:9px;padding:12px 15px;font-size:12px;font-weight:bold;cursor:pointer;display:inline-block;text-decoration:none;text-align:center}
+.red{background:var(--r);color:white}.light{background:var(--pink);color:var(--r)}.white{background:white;color:var(--r)}
+input,select,textarea{width:100%;padding:12px;border:1px solid #e5dada;border-radius:9px;margin:7px 0 14px;font:inherit;font-size:13px}
+textarea{min-height:75px;resize:vertical}label{font-size:12px;font-weight:bold}
+.tag{display:inline-block;padding:6px 10px;background:#fae8e8;color:var(--r);border-radius:30px;font-size:10px;font-weight:bold}
+.upload{display:block;border:2px dashed #e6aaaa;background:#fffafa;border-radius:14px;padding:28px;text-align:center;cursor:pointer}
+.upload-icon{font-size:42px}.result{display:none;margin-top:14px;padding:15px;background:#fff8e9;border:1px solid #f0d6a2;border-radius:11px;font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+.notice{background:#fff5e5;border:1px solid #f0d7a7;border-radius:10px;padding:13px;font-size:12px;line-height:1.7;color:#77551d}
+.med-img{width:100%;height:145px;object-fit:cover;background:var(--pink)}
+.med-art{height:145px;background:linear-gradient(135deg,#fff0f0,#ffe0e0);display:grid;place-items:center;font-size:58px}
+.med-info{padding:15px}.price{font-size:19px;font-weight:bold;color:var(--r);margin:10px 0}
+.progress{height:7px;background:#f4dede;border-radius:20px;overflow:hidden;margin:12px 0}
+.progress span{display:block;height:100%;width:0;background:var(--r);transition:width .3s}
+ul{padding-left:20px;line-height:1.8}footer{text-align:center;padding:30px;color:#777;font-size:12px}
+@media(max-width:950px){.layout{grid-template-columns:1fr}aside{display:none}nav{display:none}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:1fr}main{padding:18px 4%}}
+@media(max-width:500px){.grid{grid-template-columns:1fr}.hero{padding:22px}.hero-icon{font-size:50px}header{padding:12px 4%}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">✚ Health<span>Pilot AI</span></div>
+  <nav>
+    <a href="#dashboard">Dashboard</a><a href="#reports">Reports</a>
+    <a href="#scanner">AI Scan</a><a href="#health">Health Check</a>
+    <a href="#medicines">Medicines</a><a href="#assistant">AI Assistant</a>
+    <a href="#safety">Safety</a>
+  </nav>
+</header>
+
+<div class="layout">
+<aside>
+  <div class="sub">YOUR WORKSPACE</div>
+  <a class="side-link" href="#dashboard">▦ Dashboard</a>
+  <a class="side-link" href="#reports">▤ Upload Reports</a>
+  <a class="side-link" href="#scanner">⌕ AI Report Scanner</a>
+  <a class="side-link" href="#health">♡ Health Checker</a>
+  <a class="side-link" href="#guidance">✚ Health Guidance</a>
+  <a class="side-link" href="#medicines">💊 Medicine Library</a>
+  <a class="side-link" href="#assistant">🤖 AI Assistant</a>
+  <a class="side-link" href="#references">▧ Medical References</a>
+  <a class="side-link" href="#safety">⛨ Safety & Privacy</a>
+</aside>
+
+<main>
+<section id="dashboard">
+  <div class="hero">
+    <div>
+      <div style="font-size:11px;letter-spacing:2px">YOUR PERSONAL HEALTH COMPANION</div>
+      <h1>Understand your health.<br>Make informed choices.</h1>
+      <p>Upload reports, explore medical information, check health readings and prepare questions for your healthcare professional.</p>
+      <a href="#reports" class="btn white">＋ Upload report</a>
+      <a href="#assistant" class="btn" style="border:1px solid white;color:white">Ask assistant →</a>
+    </div>
+    <div class="hero-icon">✚</div>
+  </div>
+  <div class="section">
+    <h2>Health Dashboard</h2>
+    <p class="sub">Your personal health workspace · Demonstration mode</p>
+    <div class="grid">
+      <div class="card"><div class="icon">📄</div><div class="sub">Reports selected</div><div class="stat" id="reportCount">0</div></div>
+      <div class="card"><div class="icon">🔬</div><div class="sub">Demo scans</div><div class="stat" id="scanCount">0</div></div>
+      <div class="card"><div class="icon">💊</div><div class="sub">Medicine examples</div><div class="stat">4</div></div>
+      <div class="card"><div class="icon">🛡️</div><div class="sub">Safety first</div><div class="stat">24/7</div></div>
+    </div>
+  </div>
+  <div class="grid2 section">
+    <div class="card"><h3>Quick actions</h3>
+      <p><a class="btn light" href="#reports">📤 Upload report</a></p>
+      <p><a class="btn light" href="#health">❤️ Check readings</a></p>
+      <p><a class="btn light" href="#medicines">💊 Browse medicines</a></p>
+    </div>
+    <div class="card"><h3>Welcome to HealthPilot AI</h3>
+      <p class="sub">This prototype demonstrates a medical information dashboard. It does not replace a doctor, diagnose diseases or prescribe treatment.</p>
+    </div>
+  </div>
+</section>
+
+<section id="reports" class="section">
+  <h2>📄 Medical Report Upload</h2>
+  <p class="sub">Select a PDF or image of your medical report.</p>
+  <div class="card">
+    <label class="upload" for="file">
+      <div class="upload-icon">📁</div><h3>Select your report</h3>
+      <p class="sub">PDF, JPG, JPEG or PNG · Maximum 10 MB</p>
+      <span class="btn red">Browse files</span>
+    </label>
+    <input type="file" id="file" accept=".pdf,.jpg,.jpeg,.png" hidden>
+    <div id="fileInfo" class="sub">No file selected.</div>
+    <div id="imagePreview" style="margin-top:15px"></div>
+    <div class="notice">This standalone prototype previews images locally. It does not send your report to a server or read its medical contents.</div>
+  </div>
+</section>
+
+<section id="scanner" class="section">
+  <h2>🔬 AI Medical Report Scanner</h2>
+  <p class="sub">Demonstration of how a future medical AI could explain test reports.</p>
+  <div class="grid2">
+    <div class="card">
+      <label for="scenario">Choose report type</label>
+      <select id="scenario">
+        <option value="general">General medical report</option>
+        <option value="cbc">Complete blood count (CBC)</option>
+        <option value="sugar">Blood glucose</option>
+        <option value="lipid">Lipid profile</option>
+      </select>
+      <button class="btn red" onclick="scanDemo()">✦ Start demo scan</button>
+      <div class="progress"><span id="bar"></span></div>
+      <div id="scanStatus" class="sub">Ready to demonstrate.</div>
+    </div>
+    <div class="card"><h3>Scan results</h3>
+      <div id="scanResult" class="sub">Select a report type and start the demo. No real report analysis is performed.</div>
+    </div>
+  </div>
+</section>
+
+<section id="health" class="section">
+  <h2>❤️ Personal Health Checker</h2>
+  <p class="sub">Enter readings from your own medical devices.</p>
+  <div class="card">
+    <div class="grid2">
+      <div><label for="sys">Blood pressure — systolic (mmHg)</label><input id="sys" type="number" placeholder="120"></div>
+      <div><label for="dia">Blood pressure — diastolic (mmHg)</label><input id="dia" type="number" placeholder="80"></div>
+      <div><label for="spo">Oxygen saturation SpO₂ (%)</label><input id="spo" type="number" placeholder="98"></div>
+      <div><label for="temp">Temperature (°C)</label><input id="temp" type="number" step=".1" placeholder="37.0"></div>
+      <div><label for="pulse">Pulse (beats/minute)</label><input id="pulse" type="number" placeholder="75"></div>
+    </div>
+    <button class="btn red" onclick="checkVitals()">Check my readings</button>
+    <div id="vitalResult" class="result" aria-live="polite"></div>
+    <p class="sub">This is educational screening, not a diagnosis. Device readings can be inaccurate. Symptoms and personal medical conditions matter.</p>
+  </div>
+</section>
+
+<section id="guidance" class="section">
+  <h2>♡ Health Guidance</h2>
+  <div class="grid">
+    <div class="card"><div class="icon">🥗</div><h3>Nutrition</h3><p class="sub">Choose balanced meals containing vegetables, fruit, protein and whole grains.</p></div>
+    <div class="card"><div class="icon">💧</div><h3>Hydration</h3><p class="sub">Drink fluids regularly unless your clinician has advised a restriction.</p></div>
+    <div class="card"><div class="icon">🚶</div><h3>Activity</h3><p class="sub">Choose safe physical activity appropriate to your health and ability.</p></div>
+    <div class="card"><div class="icon">🩺</div><h3>Follow-up</h3><p class="sub">Ask your clinician to explain unusual test results and whether follow-up is needed.</p></div>
+  </div>
+</section>
+
+<section id="medicines" class="section">
+  <h2>💊 Medicine Information Library</h2>
+  <p class="sub">Illustrative medicine catalogue for your project.</p>
+  <div class="notice">These examples are not personalized prescriptions. Prices depend on brand, strength and pack size. Verify current Indian prices through the official NPPA checker. Ask a pharmacist or clinician before choosing a medicine.</div>
+  <div class="grid" style="margin-top:16px">
+    <div class="card" style="padding:0;overflow:hidden">
+      <img class="med-img" src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=500&q=80" alt="Illustrative medicine products" onerror="this.style.display='none'">
+      <div class="med-info"><span class="tag">FEVER & PAIN</span><h3>Paracetamol</h3>
+        <p class="sub">Commonly used for fever and pain. Too much can cause serious liver injury.</p>
+        <div class="price">Price: verify</div>
+        <a class="btn light" target="_blank" rel="noopener" href="https://nppaipdms.gov.in/NPPA/PharmaSahiDaam/searchMedicine">Check official prices ↗</a>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="med-art">💊</div><div class="med-info"><span class="tag">PAIN RELIEF</span><h3>Ibuprofen</h3>
+        <p class="sub">Anti-inflammatory pain reliever. May be unsuitable with ulcers, kidney problems, some heart conditions or pregnancy.</p>
+        <div class="price">Price: verify</div>
+        <a class="btn light" target="_blank" rel="noopener" href="https://nppaipdms.gov.in/NPPA/PharmaSahiDaam/searchMedicine">Check official prices ↗</a>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="med-art">💊</div><div class="med-info"><span class="tag">HEADACHE</span><h3>Headache medicines</h3>
+        <p class="sub">Treatment depends on the cause and individual health factors. Sudden severe headache requires emergency assessment.</p>
+        <div class="price">Price: varies</div>
+        <a class="btn light" target="_blank" rel="noopener" href="https://nppaipdms.gov.in/NPPA/PharmaSahiDaam/searchMedicine">Check official prices ↗</a>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div class="med-art">🧃</div><div class="med-info"><span class="tag">HYDRATION</span><h3>Oral rehydration salts</h3>
+        <p class="sub">Helps replace fluids and salts lost through diarrhoea. It is not a painkiller or fever medicine.</p>
+        <div class="price">Price: verify</div>
+        <a class="btn light" target="_blank" rel="noopener" href="https://nppaipdms.gov.in/NPPA/PharmaSahiDaam/searchMedicine">Check official prices ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="assistant" class="section">
+  <h2>🤖 AI Health Assistant</h2>
+  <p class="sub">Ask general questions about symptoms, tests or health terminology.</p>
+  <div class="card">
+    <div id="chat" style="height:290px;overflow-y:auto;background:#fff8f8;padding:12px;border-radius:10px" aria-live="polite">
+      <div class="card"><b>HealthPilot Assistant</b><p class="sub">Hello! Ask me a general health question. I am a rule-based demo, not a real AI doctor.</p></div>
+    </div>
+    <label for="question">Your question</label>
+    <textarea id="question" placeholder="Example: What does a fever mean?"></textarea>
+    <button class="btn red" onclick="askAssistant()">Send question ➤</button>
+  </div>
+</section>
+
+<section id="references" class="section">
+  <h2>📚 Medical References</h2>
+  <div class="grid">
+    <div class="card"><h3>MedlinePlus</h3><p class="sub">Health topics, tests and medicines.</p><a href="https://medlineplus.gov/" target="_blank">Open reference ↗</a></div>
+    <div class="card"><h3>Drug information</h3><p class="sub">Medicine uses and safety.</p><a href="https://medlineplus.gov/druginformation.html" target="_blank">Open reference ↗</a></div>
+    <div class="card"><h3>WHO</h3><p class="sub">Global health information.</p><a href="https://www.who.int/" target="_blank">Open reference ↗</a></div>
+    <div class="card"><h3>Indian medicine prices</h3><p class="sub">NPPA Pharma Sahi Daam.</p><a href="https://nppaipdms.gov.in/NPPA/PharmaSahiDaam/searchMedicine" target="_blank">Open price checker ↗</a></div>
+  </div>
+</section>
+
+<section id="safety" class="section">
+  <h2>🛡️ Safety & Privacy</h2>
+  <div class="grid2">
+    <div class="card"><h3>Responsible AI</h3><ul class="sub"><li>No automated diagnosis.</li><li>No medicine prescriptions.</li><li>Demonstration results are labelled.</li><li>Medical decisions require professional review.</li></ul></div>
+    <div class="card"><h3>Emergency support</h3><p class="sub">For severe breathing difficulty, chest pain, stroke symptoms or loss of consciousness, seek emergency care immediately.</p><div class="notice">In India, call 112 for emergency assistance where available. Do not wait for an AI response.</div></div>
+  </div>
+  <div class="card" style="margin-top:15px"><h3>Privacy information</h3><p class="sub">This standalone page does not send reports to an AI server. A production system requires secure storage, consent, access controls and privacy safeguards.</p></div>
+</section>
+
+<footer>✚ HealthPilot AI · AI-Powered Personal Health Copilot<br><br>Educational prototype — not a substitute for professional medical care.</footer>
+</main>
+</div>
+
+<script>
+let reports=0,scans=0;
+const fileInput=document.getElementById('file');
+
+fileInput.addEventListener('change',function(){
+  const f=this.files[0];
+  if(!f)return;
+  if(f.size>10*1024*1024){alert('Choose a file smaller than 10 MB.');this.value='';return;}
+  const valid=['application/pdf','image/jpeg','image/png'];
+  if(!valid.includes(f.type)){alert('Select a PDF, JPG or PNG.');this.value='';return;}
+  reports++;
+  document.getElementById('reportCount').textContent=reports;
+  document.getElementById('fileInfo').textContent='Selected: '+f.name+' ('+(f.size/1024).toFixed(1)+' KB)';
+  const preview=document.getElementById('imagePreview');
+  preview.replaceChildren();
+  if(f.type.startsWith('image/')){
+    const img=document.createElement('img');
+    img.src=URL.createObjectURL(f);
+    img.alt='Selected report preview';
+    img.style.cssText='max-width:100%;max-height:400px;object-fit:contain;border-radius:12px';
+    preview.appendChild(img);
+    const note=document.createElement('p');
+    note.className='sub';
+    note.textContent='Image preview only. OCR/AI analysis is not connected.';
+    preview.appendChild(note);
+  }else{
+    preview.textContent='PDF selected. PDF contents are not extracted in this prototype.';
+  }
+});
+
+function scanDemo(){
+  const type=document.getElementById('scenario').value;
+  const bar=document.getElementById('bar');
+  const status=document.getElementById('scanStatus');
+  const out=document.getElementById('scanResult');
+  bar.style.width='35%';
+  status.textContent='Preparing educational demonstration...';
+  out.textContent='Simulated scan running. Your report contents are not being analyzed.';
+  setTimeout(()=>{
+    const examples={
+      general:['General report review','A real AI system could extract test names, values, units and laboratory reference ranges.'],
+      cbc:['Complete blood count (CBC)','A CBC measures blood components such as haemoglobin, red cells, white cells and platelets. Interpretation depends on the lab ranges and clinical context.'],
+      sugar:['Blood glucose','Interpretation depends on the test type, units, fasting status and clinical circumstances. A single reading alone may not establish a diagnosis.'],
+      lipid:['Lipid profile','This report commonly includes total cholesterol, LDL, HDL and triglycerides. Cardiovascular risk and personal history affect interpretation.']
+    };
+    const e=examples[type];
+    scans++;
+    document.getElementById('scanCount').textContent=scans;
+    bar.style.width='100%';
+    status.textContent='Demonstration complete. No actual AI analysis performed.';
+    out.innerHTML='<span class="tag">SIMULATED RESULT</span><h3>'+e[0]+'</h3><p>'+e[1]+'</p><b>Next step</b><p>Discuss actual results with a qualified healthcare professional. No medicine is prescribed by this demo.</p>';
+  },700);
+}
+
+function checkVitals(){
+  const get=id=>document.getElementById(id).value.trim();
+  const s=get('sys'),d=get('dia'),o=get('spo'),t=get('temp'),p=get('pulse');
+  const out=document.getElementById('vitalResult'),notes=[];
+  let urgent=false;
+  if(!s&&!d&&!o&&!t&&!p){out.style.display='block';out.textContent='Enter at least one measurement.';return;}
+  if((s&&!d)||(!s&&d)){notes.push('Enter both systolic and diastolic blood pressure values.');}
+  if(s&&d){
+    const a=+s,b=+d;
+    if(a<50||a>300||b<20||b>200||a<=b)notes.push('Check the blood pressure values and measurement technique.');
+    else if(a>=180||b>=120){notes.push('Very high blood pressure. Repeat after at least one minute and seek immediate medical advice. Chest pain, breathlessness, weakness, confusion or vision changes require emergency care.');urgent=true;}
+    else if(a>=140||b>=90)notes.push('Blood pressure is in a high range. Arrange medical review if repeated readings remain high.');
+    else if(a<90||b<60)notes.push('Blood pressure is low. Fainting, confusion or severe weakness needs urgent assessment.');
+    else if(a>=130||b>=80)notes.push('Blood pressure may be elevated. A single reading cannot diagnose hypertension.');
+    else notes.push('This reading is below common adult high blood pressure thresholds; one reading cannot rule out a problem.');
+  }
+  if(o){
+    const n=+o;
+    if(n<50||n>100)notes.push('Check the oxygen reading and device placement.');
+    else if(n<=90){notes.push('Very low oxygen reading: seek emergency medical care now.');urgent=true;}
+    else if(n<=92){notes.push('Concerningly low oxygen for most people: seek urgent medical assessment now.');urgent=true;}
+    else if(n<=94)notes.push('Oxygen is below the usual range for many healthy adults. Repeat and promptly contact a healthcare professional.');
+    else notes.push('Oxygen is in the usual range for many healthy adults at sea level. Symptoms and individual conditions still matter.');
+  }
+  if(t){
+    const n=+t;
+    if(n<30||n>45)notes.push('Check the temperature and units.');
+    else if(n>=40){notes.push('Very high temperature: seek urgent medical assessment, especially if very unwell.');urgent=true;}
+    else if(n>=38)notes.push('This is a fever-range temperature. Rest, drink fluids if appropriate, and seek advice if symptoms worsen or persist.');
+    else if(n<35){notes.push('Abnormally low temperature may be serious. Seek urgent medical assessment.');urgent=true;}
+    else notes.push('This temperature is below the usual fever threshold.');
+  }
+  if(p){
+    const n=+p;
+    if(n<20||n>250)notes.push('Check the pulse value and measurement.');
+    else if(n>120||n<40){notes.push('This pulse can be concerning at rest, especially with symptoms. Seek prompt medical assessment; severe symptoms require emergency care.');urgent=true;}
+    else if(n>100)notes.push('Resting pulse is above the usual adult range. Repeat after resting and discuss persistent elevation with a clinician.');
+    else if(n<60)notes.push('Pulse below 60 may be normal in some athletes but needs assessment if new or accompanied by symptoms.');
+    else notes.push('Pulse is within the usual adult resting range of 60–100 beats per minute.');
+  }
+  out.style.display='block';
+  out.style.background=urgent?'#fff0f0':'#fff8e9';
+  out.innerHTML='<b>'+(urgent?'⚠️ Medical attention may be needed':'Measurement guidance')+'</b><ul>'+notes.map(x=>'<li>'+escapeHTML(x)+'</li>').join('')+'</ul><p class="sub">Educational screening only, not a diagnosis. Do not delay emergency care to use this tool. Readings can vary with age, altitude, pregnancy and medical conditions.</p>';
+}
+
+function escapeHTML(s){
+  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function askAssistant(){
+  const input=document.getElementById('question');
+  const box=document.getElementById('chat');
+  const q=input.value.trim().toLowerCase();
+  if(!q){alert('Enter your question first.');return;}
+  function bubble(name,text){
+    const card=document.createElement('div');
+    card.className='card';
+    card.style.marginBottom='10px';
+    const b=document.createElement('b');b.textContent=name;
+    const p=document.createElement('p');p.className='sub';p.textContent=text;
+    card.append(b,p);box.appendChild(card);
+  }
+  bubble('You',input.value.trim());
+  input.value='';
+  let answer;
+  if(/chest pain|cannot breathe|can't breathe|unconscious|stroke symptoms|severe breathing/.test(q)){
+    answer='These symptoms may be a medical emergency. Call 112 in India or your local emergency number and seek immediate care. Do not wait for a chatbot response.';
+  }else if(/oxygen|spo2|sp02/.test(q)){
+    answer='A pulse oximeter measures oxygen saturation. For many healthy adults at sea level, 95–100% is common. Persistent readings of 92% or lower need urgent medical assessment; 90% or lower is an emergency. Individual medical advice can differ.';
+  }else if(/blood pressure|hypertension|\bbp\b/.test(q)){
+    answer='Blood pressure has systolic and diastolic values. A reading of 180 systolic or 120 diastolic or higher requires a repeat measurement and immediate medical advice. Associated emergency symptoms require emergency care.';
+  }else if(/fever|temperature/.test(q)){
+    answer='A temperature of 38°C or above is commonly considered a fever in adults. Consider other symptoms and how long it lasts. Seek urgent care for severe symptoms or very high temperatures.';
+  }else if(/headache|pain|tablet|medicine|paracetamol|ibuprofen/.test(q)){
+    answer='Pain and headache can have many causes. A pharmacist or clinician should check allergies, age, pregnancy, other medicines and health conditions before you choose a medicine. Sudden severe headache or headache with weakness, confusion or vision loss requires emergency assessment.';
+  }else if(/report|blood test|cbc|glucose|sugar|cholesterol/.test(q)){
+    answer='I can explain what a medical test generally measures, but this demo cannot read your report. Share the test name, result, unit and lab reference range without personal identifiers for a general explanation.';
+  }else{
+    answer='I can provide basic health education and help you prepare questions for a clinician. This version uses simple keyword matching, so its response may not fit your specific situation.';
+  }
+  bubble('HealthPilot Assistant · Demo',answer);
+  box.scrollTop=box.scrollHeight;
+}
+document.getElementById('question').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();askAssistant();}
+});
+</script>
+</body>
+</html>
